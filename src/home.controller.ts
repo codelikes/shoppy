@@ -2,8 +2,13 @@ import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller()
 export class HomeController {
+  @Get()
+  index() {
+    return { message: 'routes: get: /, get: /page/:page, get: /:shop' };
+  }
+
   @Get('page/:page')
-  root(@Param('page') page: string) {
+  page(@Param('page') page: string) {
     return { page };
   }
 
