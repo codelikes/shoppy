@@ -8,6 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install the application dependencies
+RUN npm install -g @nestjs/cli
 RUN npm install
 
 # Copy the rest of the application to the working directory
@@ -17,4 +18,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the application
-CMD ["node", "--inspect=0.0.0.0", "-r", "ts-node/register", "-r", "tsconfig-paths/register", "src/main.ts"]
+CMD ["npm", "run", "start:debug"]
