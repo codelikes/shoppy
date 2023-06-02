@@ -1,10 +1,10 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller()
 export class HomeController {
-  @Get()
-  root() {
-    return { message: 'Hello world!' };
+  @Get('page/:page')
+  root(@Param('page') page: string) {
+    return { page };
   }
 
   @Get(':shop')
