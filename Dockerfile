@@ -1,5 +1,5 @@
 # Use an official Node runtime as the parent image
-FROM node:18.16.0-alpine3.18
+FROM node:18
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
