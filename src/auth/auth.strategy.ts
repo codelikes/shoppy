@@ -6,7 +6,10 @@ import { Profile } from 'passport';
 import { ExtractJwt, Strategy as PassportJwtStrategy } from 'passport-jwt';
 
 @Injectable()
-export class AuthStrategy extends PassportStrategy(PassportInstagramStrategy, 'instagram') {
+export class AuthStrategy extends PassportStrategy(
+  PassportInstagramStrategy,
+  'instagram',
+) {
   constructor(private configService: ConfigService) {
     super({
       clientID: configService.getInstagramConfig().clientId,
@@ -42,7 +45,10 @@ export class AuthStrategy extends PassportStrategy(PassportInstagramStrategy, 'i
 export class AuthJwtStrategy extends PassportStrategy(PassportJwtStrategy) {
   constructor(private configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderAsBearerToken()]),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+        (req) => req?.session?.jwt,
+      ]),
       ignoreExpiration: false,
       secretOrKey: configService.getConfig('appSecret'),
     });
@@ -52,3 +58,8 @@ export class AuthJwtStrategy extends PassportStrategy(PassportJwtStrategy) {
     return { id: payload?.sub, username: payload?.username };
   }
 }
+
+export type InstagramCallbackPayload = {
+  user: { id: string; username: string };
+  accessToken: string;
+};

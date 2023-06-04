@@ -9,6 +9,7 @@ import { SiteModule } from '@app/site/site.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AppExceptionFilter } from '@app/common/exception/app-exception.filter';
 import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   controllers: [],
@@ -16,7 +17,8 @@ import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-win
     {
       provide: ConfigService,
       inject: [NestConfigService],
-      useFactory: (nestConfigService: NestConfigService) => new ConfigService(nestConfigService),
+      useFactory: (nestConfigService: NestConfigService) =>
+        new ConfigService(nestConfigService),
     },
     {
       provide: APP_FILTER,
@@ -24,7 +26,7 @@ import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-win
     },
   ],
   imports: [
-
+    MongooseModule.forRoot(process.env.DOCKER_MONGO_URI),
     WinstonModule.forRootAsync({
       inject: [ConfigService],
       imports: [CommonModule],
@@ -80,7 +82,6 @@ import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-win
       }),
     }),
 
-
     CommonModule,
     AuthModule,
     SiteModule,
@@ -88,5 +89,4 @@ import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-win
   ],
   exports: [],
 })
-export class AppModule {
-}
+export class AppModule {}

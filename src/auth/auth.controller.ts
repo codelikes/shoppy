@@ -4,10 +4,16 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 import { getShopUrl } from '@app/common/utils';
 import { ConfigService } from '@app/common/config.service';
+import { UserService } from '@app/database/services/user.service';
+import { InstagramCallbackPayload } from '@app/auth/auth.strategy';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private jwtService: JwtService, private configService: ConfigService) {}
+  constructor(
+    private jwtService: JwtService,
+    private configService: ConfigService,
+    private userService: UserService,
+  ) {}
 
   // region Instagram
 
@@ -21,13 +27,38 @@ export class AuthController {
   @Redirect()
   @UseGuards(AuthGuard('instagram'))
   async instagramCallback(@Req() req) {
-    const user = req.user.user as { id: number; username: string };
-    const payload = { sub: user.id, username: user.username };
+    const userReq = req.user as InstagramCallbackPayload;
+    const payload = { sub: userReq.user.id, username: userReq.user.username };
     const accessToken = this.jwtService.sign(payload);
 
-    // todo: register user in db
+    let user = await this.userService.findOneByInstagramId(userReq.user.id);
 
-    const redirectUrl = getShopUrl(this.configService.getConfig('appSiteUrl'), user.username);
+    if (user) {
+      // update user in db
+      await this.userService.updateOneByInstagramId(user.instagramId, {
+        instagramAccessToken: userReq.accessToken,
+        instagramAccessTokenExpiresAt: new Date(),
+        instagramUsername: userReq.user.username,
+      });
+    } else {
+      {
+        // register user in db
+        user = await this.userService.create({
+          instagramAccessToken: userReq.accessToken,
+          instagramAccessTokenExpiresAt: new Date(),
+          instagramId: userReq.user.id,
+          instagramUsername: userReq.user.username,
+        });
+      }
+    }
+
+    // save jwt token in session
+    req.session.jwt = accessToken;
+
+    const redirectUrl = getShopUrl(
+      this.configService.getConfig('appSiteUrl'),
+      user.instagramUsername,
+    );
 
     req.session.accessToken = accessToken;
 

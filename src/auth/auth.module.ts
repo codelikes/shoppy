@@ -5,12 +5,14 @@ import { CommonModule } from '@app/common/common.module';
 import { ConfigService } from '@app/common/config.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { DatabaseModule } from '@app/database/database.module';
 
 @Module({
   controllers: [AuthController],
   providers: [AuthStrategy, AuthJwtStrategy],
   imports: [
     PassportModule,
+    DatabaseModule,
     CommonModule,
     JwtModule.registerAsync({
       imports: [CommonModule],
