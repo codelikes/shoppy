@@ -1,0 +1,25 @@
+{
+  "name": "passport-instagram",
+  "version": "1.0.1-makemyshop",
+  "description": "Instagram graph authentication strategy for Passport.",
+  "dependencies": {
+    "passport-oauth2": "1.x.x"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.7",
+    "@types/passport": "^1.0.4",
+    "vows": "0.8.x"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_PATH=lib node_modules/.bin/vows test/*-test.js"
+  },
+  "keywords": [
+    "passport",
+    "instagram",
+    "auth",
+    "authentication",
+    "identity"
+  ],
+  "license": "MIT"
+}

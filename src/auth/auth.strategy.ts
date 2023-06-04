@@ -1,7 +1,7 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@app/common/config.service';
-import { Strategy as PassportInstagramStrategy } from 'passport-instagram-graph';
+import { Strategy as PassportInstagramStrategy } from 'passport-instagram';
 import { Profile } from 'passport';
 import { ExtractJwt, Strategy as PassportJwtStrategy } from 'passport-jwt';
 
@@ -14,7 +14,7 @@ export class AuthStrategy extends PassportStrategy(PassportInstagramStrategy, 'i
       callbackURL: configService.getInstagramConfig().redirectUrl,
       scope: ['user_profile', 'instagram_graph_user_profile'],
       // scope:
-      //   'user_profile, instagram_graph_user_profile, user_media, instagram_graph_user_media, pages_show_list, instagram_graph_pages_show_list',
+      // 'user_profile, instagram_graph_user_profile, user_media, instagram_graph_user_media, pages_show_list, instagram_graph_pages_show_list',
     });
   }
 
@@ -22,10 +22,8 @@ export class AuthStrategy extends PassportStrategy(PassportInstagramStrategy, 'i
     accessToken: string,
     refreshToken: string,
     profile: Profile,
-    done: (err: any, user: any, info?: any) => void,
+    done: (err: any, user: any) => void,
   ): Promise<any> {
-    debugger;
-
     const user = {
       id: profile.id,
       username: profile.username,
@@ -51,7 +49,6 @@ export class AuthJwtStrategy extends PassportStrategy(PassportJwtStrategy) {
   }
 
   async validate(payload: any) {
-    debugger;
     return { id: payload?.sub, username: payload?.username };
   }
 }

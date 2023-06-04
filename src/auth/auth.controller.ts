@@ -17,9 +17,7 @@ export class AuthController {
   @Get('instagram/callback')
   @UseGuards(AuthGuard('instagram'))
   async instagramCallback(@Req() req) {
-    debugger;
-
-    const user = req.user;
+    const user = req.user.user;
     const payload = { sub: user.id, username: user.username };
     return { accessToken: this.jwtService.sign(payload), req: req };
   }
