@@ -10,6 +10,8 @@ import { useContainer } from 'class-validator';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 
 async function bootstrap() {
+  // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // https
     httpsOptions: {

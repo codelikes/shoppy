@@ -12,8 +12,9 @@ export class AuthStrategy extends PassportStrategy(PassportInstagramStrategy, 'i
       clientID: configService.getInstagramConfig().clientId,
       clientSecret: configService.getInstagramConfig().clientSecret,
       callbackURL: configService.getInstagramConfig().redirectUrl,
-      // scope: ['user_profile', 'instagram_graph_user_profile'],
-      scope: 'user_profile, instagram_graph_user_profile',
+      scope: ['user_profile', 'instagram_graph_user_profile'],
+      // scope:
+      //   'user_profile, instagram_graph_user_profile, user_media, instagram_graph_user_media, pages_show_list, instagram_graph_pages_show_list',
     });
   }
 
@@ -25,7 +26,11 @@ export class AuthStrategy extends PassportStrategy(PassportInstagramStrategy, 'i
   ): Promise<any> {
     debugger;
 
-    const user = {};
+    const user = {
+      id: profile.id,
+      username: profile.username,
+    };
+
     const payload = {
       user,
       accessToken,
