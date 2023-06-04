@@ -18,7 +18,7 @@ export class AuthController {
     const user = req.user;
     const payload = { sub: user.id, username: user.username };
 
-    return { accessToken: this.jwtService.sign(payload) };
+    return { accessToken: this.jwtService.sign(payload), req: req };
   }
 
   @Get('instagram/logout')

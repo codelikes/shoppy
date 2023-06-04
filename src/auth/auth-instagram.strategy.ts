@@ -10,7 +10,6 @@ export class AuthInstagramStrategy extends PassportStrategy<Strategy>(Strategy, 
       clientID: configService.getInstagramConfig().clientId,
       clientSecret: configService.getInstagramConfig().clientSecret,
       callbackURL: configService.getInstagramConfig().redirectUrl,
-      scope: 'user_profile, user_media',
     });
   }
 
