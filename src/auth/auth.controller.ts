@@ -6,6 +6,8 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthController {
   constructor(private jwtService: JwtService) {}
 
+  // region Instagram
+
   @Get('instagram/login')
   @UseGuards(AuthGuard('instagram'))
   async instagramLogin() {
@@ -15,9 +17,10 @@ export class AuthController {
   @Get('instagram/callback')
   @UseGuards(AuthGuard('instagram'))
   async instagramCallback(@Req() req) {
+    debugger;
+
     const user = req.user;
     const payload = { sub: user.id, username: user.username };
-
     return { accessToken: this.jwtService.sign(payload), req: req };
   }
 
@@ -32,4 +35,6 @@ export class AuthController {
   async instagramRemove(@Req() req) {
     return {};
   }
+
+  // endregion
 }

@@ -5,6 +5,7 @@ import { ConfigService as NestConfigService } from '@nestjs/config';
 export class ConfigService {
   private configs: ConfigGlobalStore = {
     appPort: parseInt(this.nestConfigService.get<string>('DOCKER_APP_PORT'), 10) || 3000,
+    appName: this.nestConfigService.get<string>('APP_NAME'),
     appSecret: this.nestConfigService.get<string>('APP_SECRET'),
     appAuthExpiresIn: this.nestConfigService.get<string>('APP_AUTH_EXPIRES_IN'),
     instagram: {
@@ -28,6 +29,7 @@ export class ConfigService {
 export interface ConfigGlobalStore {
   appPort?: number;
   appSecret?: string;
+  appName?: string;
   appAuthExpiresIn?: string;
   instagram?: InstagramConfig;
 }

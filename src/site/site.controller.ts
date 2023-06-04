@@ -1,5 +1,4 @@
-import { Controller, Get, Render, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Controller, Get, Render } from '@nestjs/common';
 
 @Controller()
 export class SiteController {
@@ -9,9 +8,8 @@ export class SiteController {
     return {};
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Get('profile')
-  getProfile(@Req() req) {
-    return req.user;
+  @Get('about/policy')
+  async getPolicy() {
+    return {};
   }
 }

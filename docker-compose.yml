@@ -2,6 +2,7 @@ version: '3'
 services:
   shoppy-app:
     build: .
+    image: shoppy-app
     ports:
       - '3000:3000'
       - '9229:9229'

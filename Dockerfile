@@ -1,8 +1,5 @@
 # Use an official Node runtime as the parent image
-FROM node:18
-
-# Set the working directory in the container to /app
-WORKDIR /app
+FROM node:18.16.0-alpine3.18
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
@@ -16,6 +13,9 @@ COPY . .
 
 # Make the application's port available to the outside world
 EXPOSE 3000
+
+# Set the working directory in the container to /app
+WORKDIR /app
 
 # Run the application
 CMD ["npm", "run", "start:debug"]

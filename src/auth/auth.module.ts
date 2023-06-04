@@ -1,15 +1,16 @@
 import { Module } from '@nestjs/common';
-import { AuthInstagramStrategy } from '@app/auth/auth-instagram.strategy';
+import { AuthJwtStrategy, AuthStrategy } from '@app/auth/auth.strategy';
 import { AuthController } from '@app/auth/auth.controller';
 import { CommonModule } from '@app/common/common.module';
 import { ConfigService } from '@app/common/config.service';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthJwtStrategy } from '@app/auth/auth-jwt.strategy';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthInstagramStrategy, AuthJwtStrategy],
+  providers: [AuthStrategy, AuthJwtStrategy],
   imports: [
+    PassportModule,
     CommonModule,
     JwtModule.registerAsync({
       imports: [CommonModule],
