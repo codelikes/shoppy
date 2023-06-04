@@ -23,6 +23,10 @@ export class UserService {
     return this.userModel.findOne({ instagramId }).exec();
   }
 
+  async findOneByInstagramUsername(instagramUsername: string): Promise<User> {
+    return this.userModel.findOne({ instagramUsername }).exec();
+  }
+
   async updateOneByInstagramId(
     instagramId: string,
     updateUserDto: UpdateUserDto,

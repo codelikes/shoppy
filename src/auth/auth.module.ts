@@ -6,10 +6,11 @@ import { ConfigService } from '@app/common/config.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { DatabaseModule } from '@app/database/database.module';
+import { SessionSerializer } from '@app/auth/session.serializer';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthStrategy, AuthJwtStrategy],
+  providers: [AuthStrategy, AuthJwtStrategy, SessionSerializer],
   imports: [
     PassportModule,
     DatabaseModule,

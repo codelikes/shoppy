@@ -15,8 +15,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // https
     httpsOptions: {
-      key: fs.readFileSync('./config/local-ssl/localhost.key.pem'),
-      cert: fs.readFileSync('./config/local-ssl/localhost.crt.pem'),
+      key: fs.readFileSync('./config/local-ssl/shoppy.local.key.pem'),
+      cert: fs.readFileSync('./config/local-ssl/shoppy.local.crt.pem'),
     },
   });
 

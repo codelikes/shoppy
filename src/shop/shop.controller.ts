@@ -1,15 +1,21 @@
-import { Controller, Get, Param, Render } from '@nestjs/common';
+import { Controller, Get, HostParam, Render } from '@nestjs/common';
 import { ConfigService } from '@app/common/config.service';
+import { UserService } from '@app/database/services/user.service';
 
 @Controller({
-  path: ':shopName',
+  host: ':account.:domain',
+  path: '',
 })
 export class ShopController {
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService, private userService: UserService) {}
 
   @Get()
   @Render('shop')
-  async shop(@Param('shopName') shopName: string) {
-    return { shopName };
+  async shop(@HostParam('account') account: string, @HostParam('domain') domain: string) {
+    return {
+      account,
+      domain,
+      user: this.userService.findOneByInstagramUsername(account),
+    };
   }
 }
