@@ -1,13 +1,13 @@
-import { NestFactory, Reflector } from '@nestjs/core';
+import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as hbs from 'hbs';
-import * as fs from 'fs';
 import { json, urlencoded } from 'express';
-import { ClassSerializerInterceptor } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
+import * as fs from 'fs';
+import * as session from 'express-session';
 
 async function bootstrap() {
   // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -44,6 +44,15 @@ async function bootstrap() {
 
   // logger
   app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+
+  // session
+  app.use(
+    session({
+      secret: String(process.env.APP_SECRET),
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
 
   // start app
   await app.listen(parseInt(process.env.DOCKER_APP_PORT, 10) || 3000);

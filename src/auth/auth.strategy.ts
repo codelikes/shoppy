@@ -42,7 +42,7 @@ export class AuthStrategy extends PassportStrategy(PassportInstagramStrategy, 'i
 export class AuthJwtStrategy extends PassportStrategy(PassportJwtStrategy) {
   constructor(private configService: ConfigService) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([ExtractJwt.fromAuthHeaderAsBearerToken()]),
       ignoreExpiration: false,
       secretOrKey: configService.getConfig('appSecret'),
     });

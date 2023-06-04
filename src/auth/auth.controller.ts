@@ -1,10 +1,13 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Redirect, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
+import { getShopUrl } from '@app/common/utils';
+import { ConfigService } from '@app/common/config.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private jwtService: JwtService) {}
+  constructor(private jwtService: JwtService, private configService: ConfigService) {}
 
   // region Instagram
 
@@ -15,11 +18,22 @@ export class AuthController {
   }
 
   @Get('instagram/callback')
+  @Redirect()
   @UseGuards(AuthGuard('instagram'))
   async instagramCallback(@Req() req) {
-    const user = req.user.user;
+    const user = req.user.user as { id: number; username: string };
     const payload = { sub: user.id, username: user.username };
-    return { accessToken: this.jwtService.sign(payload), req: req };
+    const accessToken = this.jwtService.sign(payload);
+
+    // todo: register user in db
+
+    const redirectUrl = getShopUrl(this.configService.getConfig('appSiteUrl'), user.username);
+
+    req.session.accessToken = accessToken;
+
+    return {
+      url: redirectUrl,
+    };
   }
 
   @Get('instagram/logout')
@@ -30,7 +44,7 @@ export class AuthController {
 
   @Get('instagram/remove')
   @UseGuards(AuthGuard('instagram'))
-  async instagramRemove(@Req() req) {
+  async instagramRemove(@Req() req: Request) {
     return {};
   }
 
