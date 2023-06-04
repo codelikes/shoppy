@@ -11,7 +11,7 @@ services:
       - /app/node_modules
 #    command: npm run start:debug
     environment:
-      - MONGO_URI=${MONGO_URI}
+      - MONGO_URI=${DOCKER_MONGO_URI}
     depends_on:
       - shoppy-mongo
   shoppy-mongo:
