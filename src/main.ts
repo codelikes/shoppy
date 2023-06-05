@@ -33,7 +33,8 @@ async function bootstrap() {
   // get asset url
   // example: {{asset 'assets/css/style.css'}}
   hbs.registerHelper('asset', (context) => {
-    return `${process.env.APP_SITE_URL}${context}`;
+    const isSlash = context?.length && context[0] === '/' ? '' : '/';
+    return `${process.env.APP_SITE_URL}${isSlash}${context}`;
   });
 
   //
