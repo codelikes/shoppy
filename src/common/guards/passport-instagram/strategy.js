@@ -41,7 +41,8 @@ var util = require('util'),
  */
 function Strategy(options, verify) {
   options = options || {};
-  options.authorizationURL = options.authorizationURL || 'https://api.instagram.com/oauth/authorize/';
+  options.authorizationURL =
+    options.authorizationURL || 'https://api.instagram.com/oauth/authorize/';
   options.tokenURL = options.tokenURL || 'https://api.instagram.com/oauth/access_token';
 
   OAuth2Strategy.call(this, options, verify);

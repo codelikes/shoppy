@@ -13,7 +13,10 @@ export class AppExceptionFilter implements ExceptionFilter {
       errors: [{ message: exception.message }],
     };
 
-    console.error(`Response with error status and body: ${JSON.stringify(jsonResponse)}.`);
+    console.error(
+      `Response with error status and body: ${JSON.stringify(jsonResponse)}.`,
+    );
+
     response.json(jsonResponse);
   }
 }

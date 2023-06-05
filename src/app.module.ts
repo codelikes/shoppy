@@ -1,5 +1,5 @@
 import * as winston from 'winston';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ShopModule } from './shop/shop.module';
 import { AuthModule } from './auth/auth.module';
 import { CommonModule } from '@app/common/common.module';
@@ -10,6 +10,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { AppExceptionFilter } from '@app/common/exception/app-exception.filter';
 import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ApplicationLogger } from '@app/common/middlewares/application-logger.middleware';
 
 @Module({
   controllers: [],
@@ -89,4 +90,8 @@ import { MongooseModule } from '@nestjs/mongoose';
   ],
   exports: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ApplicationLogger).forRoutes('*');
+  }
+}

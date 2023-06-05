@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { ShopService } from './shop.service';
 import { ShopController } from './shop.controller';
 import { CommonModule } from '@app/common/common.module';
-import { AdminController } from '@app/shop/admin.controller';
+import { ShopPanelController } from '@app/shop/shop-panel.controller';
 import { DatabaseModule } from '@app/database/database.module';
 
 @Module({
   imports: [DatabaseModule, CommonModule],
-  controllers: [ShopController, AdminController],
+  controllers: [ShopController, ShopPanelController],
   providers: [ShopService],
   exports: [],
 })

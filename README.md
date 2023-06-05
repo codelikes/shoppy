@@ -1,0 +1,13 @@
+
+
+
+db:
+
+```typescript
+
+type Shop = {
+  
+};
+
+
+```
