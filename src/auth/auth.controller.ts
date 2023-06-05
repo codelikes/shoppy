@@ -29,8 +29,6 @@ export class AuthController {
   async instagramCallback(@Req() req) {
     const userReq = req.user as InstagramCallbackPayload;
     const payload = { sub: userReq.user.id, username: userReq.user.username };
-    debugger;
-
     const accessToken = this.jwtService.sign(payload);
 
     let user = await this.userService.findOneByInstagramId(userReq.user.id);
