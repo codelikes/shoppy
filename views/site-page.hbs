@@ -1,4 +1,30 @@
-<h3>
-  page: {{ page }}
-</h3>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Make My Shop</title>
+  <link href="{{ asset 'assets/bootstrap.min.css' }}" rel="stylesheet">
+  <link href="{{ asset '/assets/site.css' }}" rel="stylesheet">
+  <link type="image/x-icon" rel="shortcut icon" href="{{asset 'assets/favicon.ico' }}" />
+</head>
+<body>
 
+<div class="page">
+  <section class="section-welcome">
+
+    page: {{ page }}
+
+    <a id="instagramLoginButton" href='/auth/instagram/login'>
+      Login
+    </a>
+
+  </section>
+</div>
+
+
+<script src="{{ asset 'assets/bootstrap.bundle.min.js' }}"></script>
+<script src="{{ asset 'assets/site.js' }}"></script>
+
+</body>
+</html>

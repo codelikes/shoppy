@@ -26,6 +26,17 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', '/views/partials'));
 
+  // hbs helpers
+  // example: {{#json data}}{{/json}}
+  hbs.registerHelper('json', (context) => JSON.stringify(context));
+
+  // get asset url
+  // example: {{asset 'assets/css/style.css'}}
+  hbs.registerHelper('asset', (context) => {
+    const asset = context.split('/');
+    return `${process.env.APP_SITE_URL}/assets/${asset[asset.length - 1]}`;
+  });
+
   //
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
