@@ -62,6 +62,12 @@ async function bootstrap() {
       secret: String(process.env.APP_SECRET),
       resave: false,
       saveUninitialized: false,
+      cookie: {
+        // two weeks in milliseconds
+        maxAge: 1209600000,
+        // share cookie between subdomains
+        domain: `.${new URL(process.env.APP_SITE_URL).hostname}`,
+      },
     }),
   );
 
