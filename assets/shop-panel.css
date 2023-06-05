@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow&display=swap');
+
+body {
+    font-family: 'Barlow', sans-serif;
+}
+
 a:hover {
     text-decoration: none;
 }
@@ -21,6 +27,7 @@ a:hover {
 
 /* sidebar for small screens */
 @media screen and (max-width: 767px) {
+
     .sidebar {
         max-width: 18rem;
         transform: translateX(-100%);
@@ -30,4 +37,5 @@ a:hover {
     .sidebar.active {
         transform: translateX(0);
     }
+
 }
