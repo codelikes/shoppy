@@ -6,6 +6,7 @@ import { getShopUrl } from '@app/common/utils';
 import { ConfigService } from '@app/common/config.service';
 import { UserService } from '@app/database/services/user.service';
 import { InstagramCallbackPayload } from '@app/auth/auth.strategy';
+import { JwtPayload } from '@app/auth/auth.module';
 
 @Controller('auth')
 export class AuthController {
@@ -28,7 +29,7 @@ export class AuthController {
   @UseGuards(AuthGuard('instagram'))
   async instagramCallback(@Req() req) {
     const userReq = req.user as InstagramCallbackPayload;
-    const payload = { sub: userReq.user.id, username: userReq.user.username };
+    const payload: JwtPayload = { sub: userReq.user.id, username: userReq.user.username };
     const accessToken = this.jwtService.sign(payload);
 
     let user = await this.userService.findOneByInstagramId(userReq.user.id);
@@ -41,15 +42,13 @@ export class AuthController {
         instagramUsername: userReq.user.username,
       });
     } else {
-      {
-        // register user in db
-        user = await this.userService.create({
-          instagramAccessToken: userReq.accessToken,
-          instagramAccessTokenExpiresAt: new Date(),
-          instagramId: userReq.user.id,
-          instagramUsername: userReq.user.username,
-        });
-      }
+      // register user in db
+      user = await this.userService.create({
+        instagramAccessToken: userReq.accessToken,
+        instagramAccessTokenExpiresAt: new Date(),
+        instagramId: userReq.user.id,
+        instagramUsername: userReq.user.username,
+      });
     }
 
     // save jwt token in session

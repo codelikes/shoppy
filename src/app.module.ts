@@ -11,6 +11,8 @@ import { AppExceptionFilter } from '@app/common/exception/app-exception.filter';
 import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ApplicationLogger } from '@app/common/middlewares/application-logger.middleware';
+import { ShopOwnerMiddleware } from '@app/common/middlewares/shop-owner.middleware';
+import { JwtProvider } from '@app/common/jwt.provider';
 
 @Module({
   controllers: [],
@@ -27,6 +29,7 @@ import { ApplicationLogger } from '@app/common/middlewares/application-logger.mi
     },
   ],
   imports: [
+    JwtProvider,
     MongooseModule.forRoot(process.env.DOCKER_MONGO_URI),
     WinstonModule.forRootAsync({
       inject: [ConfigService],
@@ -93,5 +96,6 @@ import { ApplicationLogger } from '@app/common/middlewares/application-logger.mi
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(ApplicationLogger).forRoutes('*');
+    consumer.apply(ShopOwnerMiddleware).forRoutes('*');
   }
 }
