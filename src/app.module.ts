@@ -46,42 +46,6 @@ import { JwtProvider } from '@app/common/jwt.provider';
               }),
             ),
           }),
-
-          // new winston.transports.DailyRotateFile({
-          //   format: winston.format.combine(
-          //     winston.format.colorize({ all: true }),
-          //     winston.format.timestamp(),
-          //     winston.format.ms(),
-          //     nestWinstonModuleUtilities.format.nestLike('web-content-srv', {
-          //       prettyPrint: true,
-          //     }),
-          //   ),
-          //   dirname: join(__dirname, './log/debug/'),
-          //   filename: 'app-%DATE%.log',
-          //   options: { encoding: 'utf-8' },
-          //   maxSize: '50m',
-          //   maxFiles: 3,
-          //   datePattern: 'YYYY-MM-DD',
-          //   level: 'debug',
-          // }),
-          //
-          // new winston.transports.DailyRotateFile({
-          //   format: winston.format.combine(
-          //     winston.format.colorize({ all: true }),
-          //     winston.format.timestamp(),
-          //     winston.format.ms(),
-          //     nestWinstonModuleUtilities.format.nestLike('web-content-srv', {
-          //       prettyPrint: true,
-          //     }),
-          //   ),
-          //   dirname: join(__dirname, './log/app/'),
-          //   filename: 'debug-%DATE%.log',
-          //   options: { encoding: 'utf-8' },
-          //   maxSize: '20m',
-          //   maxFiles: 30,
-          //   datePattern: 'YYYY-MM-DD',
-          //   level: 'debug',
-          // }),
         ],
       }),
     }),

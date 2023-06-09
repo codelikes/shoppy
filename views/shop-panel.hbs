@@ -4,122 +4,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Make My Shop</title>
-  <link href="{{ asset 'assets/bootstrap.min.css' }}" rel="stylesheet">
-  <link href="{{ asset 'assets/shop-panel.css' }}" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {};
+  </script>
 </head>
-<body>
+<body class="bg-gray-200">
 
-<div class="container-fluid">
-  <div class="row">
-    <!-- sidebar -->
-    <div class="col-md-3 col-lg-2 px-0 position-fixed h-100 bg-white shadow-sm sidebar" id="sidebar">
-      <h1 class="bi bi-bootstrap text-primary d-flex my-4 justify-content-center"></h1>
-      <div class="list-group rounded-0">
-        <a href="#" class="list-group-item list-group-item-action active border-0 d-flex align-items-center">
-          <span class="bi bi-border-all"></span>
-          <span class="ms-2">Dashboard</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action border-0 align-items-center">
-          <span class="bi bi-box"></span>
-          <span class="ms-2">Products</span>
-        </a>
+<div class="h-screen flex overflow-hidden bg-gray-100">
 
-        <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                data-bs-target="#sale-collapse">
-          <div>
-            <span class="bi bi-cart-dash"></span>
-            <span class="ms-2">Sales</span>
-          </div>
-          <span class="bi bi-chevron-down small"></span>
-        </button>
-        <div class="collapse" id="sale-collapse" data-bs-parent="#sidebar">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action border-0 ps-5">Customers</a>
-            <a href="#" class="list-group-item list-group-item-action border-0 ps-5">Sale Orders</a>
-          </div>
-        </div>
+  <!-- Sidebar -->
+  <div class="md:flex md:flex-shrink-0">
+    <div class="flex flex-col w-64">
+      <div class="flex flex-col h-0 flex-1 bg-gray-800 text-white">
+        <div class="flex-1 flex flex-col overflow-y-auto">
+          <nav class="px-3 mt-6">
+            <div class="space-y-1">
 
-        <button class="list-group-item list-group-item-action border-0 d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
-                data-bs-target="#purchase-collapse">
-          <div>
-            <span class="bi bi-cart-plus"></span>
-            <span class="ms-2">Purchase</span>
-          </div>
-          <span class="bi bi-chevron-down small"></span>
-        </button>
-        <div class="collapse" id="purchase-collapse" data-bs-parent="#sidebar">
-          <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action border-0 ps-5">Sellers</a>
-            <a href="#" class="list-group-item list-group-item-action border-0 ps-5">Purchase Orders</a>
-          </div>
+              <!-- logo -->
+              <a href="#" class="text-white flex items-center space-x-2 px-2">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 14a4 4 0 100-8 4 4 0 000 8z"></path>
+                </svg>
+                <span class="text-2xl font-extrabold">Admin Panel</span>
+              </a>
+
+              <!-- nav -->
+              <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Orders</a>
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Products</a>
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Customers</a>
+              <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Settings</a>
+            </div>
+          </nav>
         </div>
       </div>
     </div>
-    <!-- overlay to close sidebar on small screens -->
-    <div class="w-100 vh-100 position-fixed overlay d-none" id="sidebar-overlay"></div>
-    <!-- note: in the layout margin auto is the key as sidebar is fixed -->
-    <div class="col-md-9 col-lg-10 ms-md-auto px-0">
-      <!-- top nav -->
-      <nav class="w-100 d-flex px-4 py-2 mb-4 shadow-sm">
-        <!-- close sidebar -->
-        <button class="btn py-0 d-lg-none" id="open-sidebar">
-          <span class="bi bi-list text-primary h3"></span>
-        </button>
-        <div class="dropdown ms-auto">
-          <button class="btn py-0 d-flex align-items-center" id="logout-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="bi bi-person text-primary h4"></span>
-            <span class="bi bi-chevron-down ms-1 mb-2 small"></span>
-          </button>
-          <div class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="logout-dropdown">
-            <a class="dropdown-item" href="#">Logout</a>
-            <a class="dropdown-item" href="#">Settings</a>
-          </div>
-        </div>
-      </nav>
-      <!-- main content -->
-      <main class="container-fluid">
-        <section class="row">
-          <div class="col-md-6 col-lg-4">
-            <!-- card -->
-            <article class="p-4 rounded shadow-sm border-start mb-4">
-              <a href="#" class="d-flex align-items-center">
-                <span class="bi bi-box h5"></span>
-                <h5 class="ms-2">Products</h5>
-              </a>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <article class="p-4 rounded shadow-sm border-start mb-4">
-              <a href="#" class="d-flex align-items-center">
-                <span class="bi bi-person h5"></span>
-                <h5 class="ms-2">Customers</h5>
-              </a>
-            </article>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <article class="p-4 rounded shadow-sm border-start mb-4">
-              <a href="#" class="d-flex align-items-center">
-                <span class="bi bi-person-check h5"></span>
-                <h5 class="ms-2">Sellers</h5>
-              </a>
-            </article>
-          </div>
-        </section>
+  </div>
 
-        <div class="jumbotron jumbotron-fluid rounded bg-white border-0 shadow-sm border-start px-4">
-          <div class="container">
-            <h1 class="display-4 mb-2 text-primary">Simple</h1>
-            <p class="lead text-muted">Simple Admin Dashboard with Bootstrap.</p>
-          </div>
+
+  <!-- Content area -->
+  <div class="flex-1 flex flex-col overflow-y-auto">
+    <main class="flex-1 relative z-0 overflow-y-auto focus:outline-none p-6">
+      <div class="max-w-4xl mx-auto md:grid md:grid-cols-3 md:gap-6">
+        <div class="md:col-span-1">
+          <h2 class="text-lg leading-6 font-medium text-gray-900">Dashboard</h2>
         </div>
-      </main>
-    </div>
+        <div class="mt-5 md:mt-0 md:col-span-2">
+          <form action="#" method="POST">
+            <div class="shadow sm:rounded-md sm:overflow-hidden">
+              <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <div class="grid grid-cols-3 gap-6">
+                  <div class="col-span-3">
+                    <label for="content_title" class="block text-sm font-medium text-gray-700">
+                      Content Title
+                    </label>
+                    <input type="text" id="content_title"
+                           class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                  </div>
+                  <div class="col-span-3">
+                    <label for="content_body" class="block text-sm font-medium text-gray-700">
+                      Content Body
+                    </label>
+                    <textarea id="content_body" rows="3"
+                              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <button type="submit"
+                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  Save
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
   </div>
 </div>
 
+<!-- Button to open/close the sidebar -->
+<button id="menu-button" class="md:hidden bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute top-0 right-0 m-6">Menu</button>
 
-<script src="{{ asset 'assets/bootstrap.bundle.min.js' }}"></script>
+<script>
+  const menuButton = document.querySelector('#menu-button');
+  const sidebar = document.querySelector('#sidebar');
+
+  menuButton.addEventListener('click', () => {
+    sidebar.classList.toggle('-translate-x-full');
+  });
+</script>
+
+</div>
 <script src="{{ asset 'assets/shop-panel.js' }}"></script>
 
 </body>
 </html>
+

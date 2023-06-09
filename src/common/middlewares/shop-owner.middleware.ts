@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import { ConfigService } from '@app/common/config.service';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from '@app/auth/auth.module';
-import { getShopUrl } from '@app/common/utils';
+import { getShopPanelUrl } from '@app/common/utils';
 
 @Injectable()
 export class ShopOwnerMiddleware implements NestMiddleware {
@@ -22,7 +22,10 @@ export class ShopOwnerMiddleware implements NestMiddleware {
 
       if (jwtPayload && shop !== jwtPayload.username) {
         return res.redirect(
-          getShopUrl(this.configService.getConfig('appSiteUrl'), jwtPayload.username),
+          getShopPanelUrl(
+            this.configService.getConfig('appSiteUrl'),
+            jwtPayload.username,
+          ),
         );
       }
     }

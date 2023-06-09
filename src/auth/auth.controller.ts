@@ -2,7 +2,7 @@ import { Controller, Get, Redirect, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { getShopUrl } from '@app/common/utils';
+import { getShopPanelUrl } from '@app/common/utils';
 import { ConfigService } from '@app/common/config.service';
 import { UserService } from '@app/database/services/user.service';
 import { InstagramCallbackPayload } from '@app/auth/auth.strategy';
@@ -54,7 +54,7 @@ export class AuthController {
     // save jwt token in session
     req.session.jwt = accessToken;
 
-    const redirectUrl = getShopUrl(
+    const redirectUrl = getShopPanelUrl(
       this.configService.getConfig('appSiteUrl'),
       user.instagramUsername,
     );

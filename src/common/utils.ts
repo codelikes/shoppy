@@ -7,7 +7,7 @@ export const isDev = () => {
   );
 };
 
-export const getShopUrl = (appSiteUrl: string, account: string): string => {
+export const getShopPanelUrl = (appSiteUrl: string, account: string): string => {
   const url = new URL(appSiteUrl);
 
   // https://shop.makemyshop.app/admin
